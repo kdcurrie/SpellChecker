@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 import java.util.Stack;
 
-public class BST {
+public class BST implements SearchandInsert{
 
     Node root = null;
 
@@ -24,21 +24,38 @@ public class BST {
      *BST search
      *
      ***************************************/
-    public boolean search(String word) {
+    @Override
+    public String search(String word) {
         return search(word, root);
     }
-    private boolean search(String word, Node root){
+    private String search(String word, Node root){
 
         while (root != null) {
-            if (root.data.compareTo(word) < 0)
-                root = root.right;
+            if(root.left == null && root.right == null) {
+                return root.data;
+            }
+            else if ((root.data.compareTo(word) > 0) && root.left == null) {
+                return root.data;
+            }
+            else if ((root.data.compareTo(word) < 0) && root.right == null) {
+                return root.data;
+            }
             else if(root.data.compareTo(word) > 0)
                 root = root.left;
+            else if (root.data.compareTo(word) < 0)
+                root = root.right;
             else
-                return true;
+                return root.data;
         }
-        return false;
+        return root.data;
     }
+//    public String search(String word) {
+//        return search(word, root);
+//    }
+//
+//    public String search(String word, Node root) {
+//
+//    }
         /****************************************
          *Will traverse the tree and find the
          * parent node of the word by comparing
@@ -46,6 +63,7 @@ public class BST {
          * the word into the correct node
          * *current bug with apostrophes
          ***************************************/
+        @Override
         public void insert(String word) {
             root = insertIterative(word, root);
         }

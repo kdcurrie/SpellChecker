@@ -1,6 +1,6 @@
 import java.security.AlgorithmConstraints;
 
-public class Trie {
+public class Trie implements SearchandInsert{
 
     static final int ALPHABET_SIZE = 27;
     TrieNode root = new TrieNode();
@@ -26,14 +26,14 @@ public class Trie {
      * of every word at unique index, and at end
      * of word, sets boolean to true
      ********************************************/
+    @Override
     public void insert(String key) {
         int currChar;
         int length = key.length();
         int index;
         TrieNode curr = root;
 
-        for(currChar = 0; currChar < length; currChar++)
-        {
+        for(currChar = 0; currChar < length; currChar++) {
             index = key.charAt(currChar) - 'a';
             if(index == -58) { //apostrophe - 'a' = -58
                 index = 26;
@@ -52,26 +52,60 @@ public class Trie {
      * and check if any children are null, which will
      * result in return false, otherwise if every character
      ********************************************/
-    public boolean search(String key) {
+    @Override
+    public String search(String key) {
         int currChar;
         int length = key.length();
         int index;
+        String suggest = "";
         TrieNode curr = root;
+//        TrieNode previous = root;
 
-        for(currChar = 0; currChar<length; currChar++)
-        {
+        for(currChar = 0; currChar<length; currChar++) {
             index = key.charAt(currChar) - 'a';
             if(index == -58) { //apostrophe - 'a' = -58
                 index = 26;
             }
             if(index < 0 || index > 26) { //if char is not a-z or ', then return false
-                return false;
+                return "false";
             }
-            if(curr.children[index] == null) {
-                return false;
+            if (curr.children[index] == null) {
+                return suggest = suggestWord(suggest, curr);
             }
+            if(curr.children[index] != null && index == 26) {
+                suggest = suggest+key.charAt(currChar);
+                currChar--;
+            }
+            else {
+                suggest = suggest + key.charAt(currChar);
+            }
+//            previous = curr;
             curr = curr.children[index];
+
         }
-        return(curr != null && curr.isEndOfWord);
+        if (curr != null && curr.isEndOfWord) {
+            return key;
+        }
+        return key;
+    }
+
+    public String suggestWord(String suggest, TrieNode current) {
+        int i = 0;
+        while(!current.isEndOfWord) {
+            if (current.children[i] != null) {
+                suggest = suggest + (char) (i + 97);
+                current = current.children[i];
+                i = 0;
+            }
+            else if(current.children[i] == null) {
+                i++;
+            }
+        }
+        return suggest;
+    }
+
+    public void iterativePreOrder()
+    {
+        return;
     }
 }

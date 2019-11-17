@@ -13,8 +13,7 @@ public class CS245A1 {
     ArrayList<String> dictionary;
     ArrayList<String> inputWords;
     ArrayList<String> outputWords;
-    BST bsTree;
-    Trie trie;
+    SearchandInsert tree;
     SuggestWords reccWords;
     int size;
 
@@ -25,54 +24,19 @@ public class CS245A1 {
         System.out.println("Starting up Spell Checker");
     }
 
-    public void trieImplementation() {
-        trie = new Trie();
-
+    public void treeImplementation() {
         try {
-            for(int i=0; i<size; i++) {
-                trie.insert(dictionary.get(i));
+            for (int i = 0; i < size; i++) {
+                tree.insert(dictionary.get(i));
             }
+//            tree.iterativePreOrder();
         }
         catch (Exception e) {
-            System.out.println("\nFailed to insert dictionary into Trie.");
+            System.out.println("\nFailed to insert dictionary.");
         }
         for(String line: inputWords) {
-            if (!trie.search(line)) {
-                System.out.println(line + " not found.");
-            }
+            System.out.println(tree.search(line));
         }
-
-    }
-    public void bstImplementation() {
-        bsTree = new BST();
-        try {
-            System.out.println("Here");
-            for(int i=0; i<size; i++) {
-                bsTree.insert(dictionary.get(i));
-            }
-            bsTree.iterativePreOrder();
-//            for(int i=middleInd-1; i>=0; i--) { //adds everything to left of middle
-//                bsTree.insert(dictionary.get(i));
-//            }
-//            for(int i=middleInd+1; i<size;i++) {
-//                bsTree.insert(dictionary.get(i));
-//            }
-
-//            reccWords = new SuggestWords(bsTree);
-        }
-        catch (Exception e) {
-            System.out.println("\nFailed to insert dictionary into Binary Search Tree.");
-        }
-        for(String line: inputWords) {
-            if (!bsTree.search(line)) {
-                System.out.println(line + " not found.");
-//                bstSpellChecker(line);
-            }
-        }
-    }
-//
-    public void bstSpellChecker(String line) {
-
     }
 
     /**********************************
@@ -83,15 +47,18 @@ public class CS245A1 {
     public void whichImplementation(String storageType) {
         if(storageType.equals("trie")) {
             System.out.println("configuration file calls for storage type: trie");
-            trieImplementation();
+            tree = new Trie();
+            treeImplementation();
         }
         else if(storageType.equals("tree")) {
             System.out.println("configuration file calls for storage type: tree");
-            bstImplementation();
+            tree = new BST();
+            treeImplementation();
         }
         else {
             System.out.println("No configuration provided, storage type will default to trie.");
-            trieImplementation();
+            tree = new Trie();
+            treeImplementation();
         }
     }
 
