@@ -16,7 +16,6 @@ public class CS245A1 {
         dictionary = new ArrayList<>();
         inputWords = new ArrayList<>();
         outputWords = new ArrayList<>();
-        System.out.println("Starting up Spell Checker");
     }
 
     public void treeImplementation() {
@@ -118,8 +117,10 @@ public class CS245A1 {
                 line = input.readLine();
             }
             input.close();
+            System.out.println("Input file " + "\"" + inputFileName + "\"" + " read successfully.\n");
 
         } catch(IOException e) {
+            System.out.println("Failed to read input file.");
             e.printStackTrace();
         }
     }
@@ -142,13 +143,16 @@ public class CS245A1 {
                 outputWriter.newLine();
             }
             outputWriter.close();
+            System.out.println("\nOutput file \"output.txt\" written too successfully.");
 
         } catch(IOException e) {
+            System.out.println("Failed to write to \"output.txt\"");
             e.printStackTrace();
         }
     }
 
     public void runCS245A1(String argument) {
+        System.out.println("Starting up Spell Checker...");
         readDictionary();
         readInput(argument);
         whichImplementation(readPropertyFile());
