@@ -1,0 +1,5 @@
+trie
+basket
+boonker
+teeth
+coffer
