@@ -1,9 +1,7 @@
-import java.security.AlgorithmConstraints;
+public class Trie implements SearchAndInsert {
 
-public class Trie implements SearchandInsert{
-
-    static final int ALPHABET_SIZE = 27;
-    TrieNode root = new TrieNode();
+    private static final int ALPHABET_SIZE = 27;
+    private TrieNode root = new TrieNode();
 
     /*****************
      *TrieNode Class
@@ -22,7 +20,6 @@ public class Trie implements SearchandInsert{
 
     /********************************************
      *Trie insert
-     * root
      * creates a new TrieNode for each character
      * of every word at unique index, and at end
      * of word, sets boolean to true
@@ -47,12 +44,12 @@ public class Trie implements SearchandInsert{
         curr.isEndOfWord = true;
     }
 
-    /********************************************
+    /*******************************************************
      *Trie search
      * will iterate through every character of key
      * and check if any children are null, which will
      * result in return false, otherwise if every character
-     ********************************************/
+     ******************************************************/
     @Override
     public String search(String key) {
         int currChar;
@@ -87,12 +84,13 @@ public class Trie implements SearchandInsert{
             return key;
         }
         else if(!key.equals("")) {
+            assert curr != null;
             return suggest = suggestWord(suggest, curr);
         }
         return key;
     }
 
-    public String suggestWord(String suggest, TrieNode current) {
+    private String suggestWord(String suggest, TrieNode current) {
         int i = 0;
         while(!current.isEndOfWord) {
             if (current.children[i] != null) {

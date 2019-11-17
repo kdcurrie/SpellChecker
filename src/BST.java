@@ -1,20 +1,18 @@
-import java.util.*;
-import java.io.*;
 import java.util.Stack;
 
-public class BST implements SearchandInsert{
+public class BST implements SearchAndInsert {
 
-    Node root = null;
+    private Node root = null;
 
-    /************
-     *Node Class
-     ************/
+    /******************************
+     *Node Class & Node Constructor
+     ******************************/
     class Node {
         String data;
         Node left = null;
         Node right = null;
 
-        Node(String word) { //Node constructor
+        Node(String word) {
             data = word;
             left = null;
             right = null;
@@ -22,9 +20,12 @@ public class BST implements SearchandInsert{
     }
     /****************************************
      *BST search
-     *
+     * Searches for word at the root and then checking each child node.
+     *This function also serves as the BST suggest alternative word
+     * function by making lexicographic comparisons and providing a suggestion
+     * closest to where the word should be located in the tree as a node
      ***************************************/
-    @Override
+   @Override
     public String search(String word) {
         return search(word, root);
     }
@@ -52,13 +53,11 @@ public class BST implements SearchandInsert{
         return root.data;
     }
 
-        /****************************************
-         *Will traverse the tree and find the
-         * parent node of the word by comparing
-         * them lexographically, and then insert
+        /**************************************************************
+         *Will traverse the tree and find the parent node of
+         * the word by comparing them lexographically, and then insert
          * the word into the correct node
-         * *current bug with apostrophes
-         ***************************************/
+         **************************************************************/
         @Override
         public void insert(String word) {
             root = insertIterative(word, root);
@@ -95,36 +94,34 @@ public class BST implements SearchandInsert{
          *prints out entire tree in
          * alphabetical order
          **********************************/
-        public void iterativePreOrder()
-        {
-            iterativePreOrder(root);
-        }
-        private void iterativePreOrder(Node node) {
-
-            // Base Case
-            if (node == null) {
-                return;
-            }
-            // Create an empty stack and push root to it
-            Stack<Node> nodeStack = new Stack<Node>();
-            nodeStack.push(root);
-            int count = 0;
-            while (!nodeStack.empty()) {
-
-                // Pop the top of stack and print
-                Node myNode = nodeStack.peek();
-                nodeStack.pop();
-                System.out.print(myNode.data + " , ");
-                System.out.println(++count);
-
-                // Push right and left children to stack
-                if (myNode.right != null) {
-                    nodeStack.push(myNode.right);
-                }
-                if (myNode.left != null) {
-                    nodeStack.push(myNode.left);
-                }
-            }
-        }
-
+//        public void iterativePreOrder()
+//        {
+//            iterativePreOrder(root);
+//        }
+//        private void iterativePreOrder(Node node) {
+//
+//            // Base Case
+//            if (node == null) {
+//                return;
+//            }
+//            // Create an empty stack and push root to it
+//            Stack<Node> nodeStack = new Stack<Node>();
+//            nodeStack.push(root);
+//            int count = 0;
+//            while (!nodeStack.empty()) {
+//
+//                // Pop the top of stack and print
+//                Node myNode = nodeStack.peek();
+//                nodeStack.pop();
+//                System.out.print(myNode.data + " , ");
+//                System.out.println(++count);
+//
+//                // Push right and left children to stack
+//                if (myNode.right != null) {
+//                    nodeStack.push(myNode.right);
+//                }
+//                if (myNode.left != null) {
+//                    nodeStack.push(myNode.left);
+//                }
+//            }
 }

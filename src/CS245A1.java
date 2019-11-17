@@ -1,23 +1,16 @@
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.nio.file.*;
 import java.io.*;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Properties;
 
 public class CS245A1 {
 
-    ArrayList<String> dictionary;
-    ArrayList<String> inputWords;
-    ArrayList<String> outputWords;
-    SearchandInsert tree;
-    SuggestWords reccWords;
-    int size;
-    long start;
-    long end;
+    private ArrayList<String> dictionary;
+    private ArrayList<String> inputWords;
+    private ArrayList<String> outputWords;
+    private SearchAndInsert tree;
+    private int size;
 
     public CS245A1 () {
         dictionary = new ArrayList<>();
@@ -38,21 +31,15 @@ public class CS245A1 {
     }
 
     /**********************************
-     * whichImplementation will run
-     * whichever storage implementation
-     * is in the config file
+     * whichImplementation will run whichever storage implementation
+     * ia specified in the config file, or it will default to trie.
+     * run-times for each implementation will be printed.
      **********************************/
     public void whichImplementation(String storageType) {
-        if(storageType.equals("trie")) {
-            System.out.println("configuration file calls for storage type: trie");
-            start = System.currentTimeMillis();
-            tree = new Trie();
-            treeImplementation();
-            end = System.currentTimeMillis();
-            System.out.println("Trie implementation time: " + (end - start) + "ms");
+        long start;
+        long end;
 
-        }
-        else if(storageType.equals("tree")) {
+        if (storageType.equals("tree")) {
             System.out.println("configuration file calls for storage type: tree");
             start = System.currentTimeMillis();
             tree = new BST();
@@ -61,7 +48,12 @@ public class CS245A1 {
             System.out.println("Tree implementation time: " + (end - start) + "ms");
         }
         else {
-            System.out.println("No configuration provided, storage type will default to trie.");
+            if (!storageType.equals("trie")) {
+                System.out.println("No configuration provided, storage type will default to trie.");
+            }
+            else {
+                System.out.println("configuration file calls for storage type: trie");
+            }
             start = System.currentTimeMillis();
             tree = new Trie();
             treeImplementation();
@@ -70,10 +62,10 @@ public class CS245A1 {
         }
     }
 
-    /**********************************
-     * Buffer Reader that reads English.0
+    /**************************************************************
+     * Buffer Reader that reads English.0 and stores in Array List
      * converts everything to lowercase
-     **********************************/
+     *************************************************************/
     public void readDictionary() {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/english.0"))) {
             String line = reader.readLine();
@@ -84,7 +76,6 @@ public class CS245A1 {
 
                 line = reader.readLine();
             }
-//            System.out.println(dictionary.toString());
             size = dictionary.size();
             reader.close();
 
@@ -102,9 +93,7 @@ public class CS245A1 {
         try (BufferedReader buffer = Files.newBufferedReader(Paths.get("src/a1properties.txt"))) {
             implementation.load(buffer);
             buffer.close();
-
-                String storageType = implementation.getProperty("storage");
-                return storageType;
+            return implementation.getProperty("storage");
 
         } catch (IOException f) {
             f.printStackTrace();
@@ -115,7 +104,8 @@ public class CS245A1 {
      * Read Input File Function
      * This function reads in each line of
      * input file into an Array List and removes
-     * all non alphabetic and ' characters
+     * all non alphabetic and ' characters.
+     * takes command line argument for file name.
      ******************************************/
     public void readInput(String inputFileName) {
         try (BufferedReader input = Files.newBufferedReader(Paths.get("src/" + inputFileName))) {
@@ -128,7 +118,6 @@ public class CS245A1 {
                 line = input.readLine();
             }
             input.close();
-//            System.out.println(inputWords.toString());
 
         } catch(IOException e) {
             e.printStackTrace();
