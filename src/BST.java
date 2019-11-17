@@ -29,7 +29,9 @@ public class BST implements SearchandInsert{
         return search(word, root);
     }
     private String search(String word, Node root){
-
+        if(word.length() == 0) {
+            return "";
+        }
         while (root != null) {
             if(root.left == null && root.right == null) {
                 return root.data;
@@ -49,13 +51,7 @@ public class BST implements SearchandInsert{
         }
         return root.data;
     }
-//    public String search(String word) {
-//        return search(word, root);
-//    }
-//
-//    public String search(String word, Node root) {
-//
-//    }
+
         /****************************************
          *Will traverse the tree and find the
          * parent node of the word by comparing

@@ -22,6 +22,7 @@ public class Trie implements SearchandInsert{
 
     /********************************************
      *Trie insert
+     * root
      * creates a new TrieNode for each character
      * of every word at unique index, and at end
      * of word, sets boolean to true
@@ -59,7 +60,6 @@ public class Trie implements SearchandInsert{
         int index;
         String suggest = "";
         TrieNode curr = root;
-//        TrieNode previous = root;
 
         for(currChar = 0; currChar<length; currChar++) {
             index = key.charAt(currChar) - 'a';
@@ -67,7 +67,7 @@ public class Trie implements SearchandInsert{
                 index = 26;
             }
             if(index < 0 || index > 26) { //if char is not a-z or ', then return false
-                return "false";
+                return "";
             }
             if (curr.children[index] == null) {
                 return suggest = suggestWord(suggest, curr);
@@ -79,12 +79,15 @@ public class Trie implements SearchandInsert{
             else {
                 suggest = suggest + key.charAt(currChar);
             }
-//            previous = curr;
+
             curr = curr.children[index];
 
         }
         if (curr != null && curr.isEndOfWord) {
             return key;
+        }
+        else if(!key.equals("")) {
+            return suggest = suggestWord(suggest, curr);
         }
         return key;
     }
