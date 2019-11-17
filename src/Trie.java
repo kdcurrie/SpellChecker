@@ -104,9 +104,4 @@ public class Trie implements SearchAndInsert {
         }
         return suggest;
     }
-
-    public void iterativePreOrder()
-    {
-        return;
-    }
 }
