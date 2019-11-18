@@ -1,0 +1,14 @@
+Name: Keaton Currie
+Student ID: 20402879
+
+Notes: This implementation takes a command line argument for the name of the input file. It then processes this input file, and returns either the correctly
+spelled word, or it returns one spelling suggestion for the word. I have comments above each function. any numbers or special characters in the input file
+will be eaten. My BST insert and search are both performed iteratively for efficiency. I have a search and insert interface, the search functions return a
+suggested spelling of the word.
+Extra Credit: The only extra credit I did was reading the "english.0" file directly from GitHub.
+
+Runtime analysis:
+I have added a clock function to count the milliseconds for the runtime of the tree and trie implementations. On average, the tree implementation takes about
+170ms, whereas the trie implementation takes on average about 40ms. The reasoning behind this is because the average run-time complexity for a Binary search tree
+that is well balanced is proportional to M*log N, where M is the maximum string length and N is the number of keys in the tree. But with a trie implementation
+we can search a given key in O(M) time, which is significantly faster, although the cost of a trie implementation is greater storage requirements.

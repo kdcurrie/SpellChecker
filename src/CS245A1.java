@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -64,24 +65,29 @@ public class CS245A1 {
         }
     }
 
-    /**************************************************************
-     * Buffer Reader that reads English.0 and stores in Array List
-     * converts everything to lowercase
-     *************************************************************/
+    /**************************************************
+     * Buffer Reader that reads English.0 from Github
+     * and stores in Array List.
+     * converts everything to lowercase.
+     **************************************************/
     public void readDictionary() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/english.0"))) {
-            String line = reader.readLine();
+        System.out.println("Reading \"english.0\" dictionary file from github.");
+        try {
+            URL url = new URL("https://raw.githubusercontent.com/magsilva/jazzy/master/resource/dict/english.0");
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line = in.readLine();
             while(line != null) {
                 if(line.length() >= 1){
                     dictionary.add(line.toLowerCase());
                 }
 
-                line = reader.readLine();
+                line = in.readLine();
             }
             size = dictionary.size();
-            reader.close();
+            in.close();
 
         } catch(IOException e) {
+            System.out.println("Failed to read english.0 from github.");
             e.printStackTrace();
         }
     }
@@ -120,7 +126,7 @@ public class CS245A1 {
                 line = input.readLine();
             }
             input.close();
-            System.out.println("Input file " + "\"" + inputFileName + "\"" + " read successfully.\n");
+            System.out.println("\nInput file " + "\"" + inputFileName + "\"" + " read successfully.\n");
 
         } catch(IOException e) {
             System.out.println("Failed to read input file.");
