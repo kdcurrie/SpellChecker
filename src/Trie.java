@@ -66,11 +66,11 @@ public class Trie implements SearchAndInsert {
             if(index < 0 || index > 26) { //if char is not a-z or ', then return false
                 return "";
             }
-            if (curr.children[index] == null) {
+            if (curr.children[index] == null) { //if child index is null, then calls suggest Word function
                 return suggest = suggestWord(suggest, curr);
             }
-            if(curr.children[index] != null && index == 26) {
-                suggest = suggest+key.charAt(currChar);
+            if(curr.children[index] != null && index == 26) { //if ', then decrements current char
+                suggest = suggest+key.charAt(currChar);//so that recommend word will work
                 currChar--;
             }
             else {
@@ -80,16 +80,20 @@ public class Trie implements SearchAndInsert {
             curr = curr.children[index];
 
         }
-        if (curr != null && curr.isEndOfWord) {
+        if (curr != null && curr.isEndOfWord) { //if end of word found, return the string
             return key;
         }
-        else if(!key.equals("")) {
+        else if(!key.equals("")) { //if word not empty and not complete
             assert curr != null;
             return suggest = suggestWord(suggest, curr);
         }
         return key;
     }
-
+    /********************************************************
+     *suggestWord function, takes the current node and
+     * searches for children node that are not null until
+     * the word is completed, then returns the completed word
+     ********************************************************/
     private String suggestWord(String suggest, TrieNode current) {
         int i = 0;
         while(!current.isEndOfWord) {

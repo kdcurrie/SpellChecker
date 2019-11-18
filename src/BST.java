@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class BST implements SearchAndInsert {
@@ -18,13 +19,13 @@ public class BST implements SearchAndInsert {
             right = null;
         }
     }
-    /****************************************
+    /**************************************************************************
      *BST search
      * Searches for word at the root and then checking each child node.
      *This function also serves as the BST suggest alternative word
      * function by making lexicographic comparisons and providing a suggestion
      * closest to where the word should be located in the tree as a node
-     ***************************************/
+     **************************************************************************/
    @Override
     public String search(String word) {
         return search(word, root);

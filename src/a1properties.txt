@@ -1,1 +1,1 @@
-storage=trie
+storage=tree

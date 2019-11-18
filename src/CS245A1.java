@@ -17,7 +17,10 @@ public class CS245A1 {
         inputWords = new ArrayList<>();
         outputWords = new ArrayList<>();
     }
-
+    /*****************************************
+     * Inserts each word form the dictionary into
+     * either tree or trie implementation
+     *****************************************/
     public void treeImplementation() {
         try {
             for (int i = 0; i < size; i++) {
@@ -29,11 +32,11 @@ public class CS245A1 {
         }
     }
 
-    /**********************************
+    /****************************************************************
      * whichImplementation will run whichever storage implementation
      * ia specified in the config file, or it will default to trie.
      * run-times for each implementation will be printed.
-     **********************************/
+     ****************************************************************/
     public void whichImplementation(String storageType) {
         long start;
         long end;
